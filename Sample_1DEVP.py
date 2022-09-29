@@ -1,5 +1,6 @@
 import numpy as np
 import math as ma
+import time
 from mpl_toolkits import mplot3d
 import matplotlib.pyplot as plt
 from matplotlib import cm
@@ -60,7 +61,18 @@ problem.add_equation("Piy(y=0) = 0")
 problem.add_equation("Piy(y=Ly) = 0")
 
 # Solve
+logger.info('Start to build sub problem matrix')
 solver = problem.build_solver()
-solver.solve_dense(solver.subproblems[0])
+# logger.info('Matrices Built')
+# solver.solve_dense(solver.subproblems[0])
 
-logger.info('End')
+# logger.info('End')
+
+t0 = time.time()
+solver.solve_dense(solver.subproblems[0])
+t1= time.time()
+solver.solve_dense(solver.subproblems[0])
+t2 = time.time()
+
+print("First solve:", t1-t0)
+print("Second solve:", t2-t1) 
